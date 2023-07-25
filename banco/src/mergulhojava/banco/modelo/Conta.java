@@ -1,10 +1,14 @@
+package mergulhojava.banco.modelo;
+
 import java.text.NumberFormat;
 import java.util.Currency;
 import java.util.Locale;
 
+
+
 public class Conta {
-    private String nomeTitular;
-    private String documento;
+    private final Pessoa titular;
+
     private int agencia;
     private int numero;
     private double saldo;
@@ -15,22 +19,22 @@ public class Conta {
     Currency corrency = moeda.getCurrency();
 
 
-    public Conta(String nomeTitular,String documento,int agencia, int numero, double saldo) {
-        this.nomeTitular = nomeTitular;
-        this.documento = documento;
+
+    public Conta(Pessoa titular, int agencia, int numero) {
+
+        this.titular = titular;
         this.setAgencia(agencia);
         this.setNumero(numero);
-        this.saldo = saldo;
+       
     }
-    public String getNomeTitular() {
-        return nomeTitular;
+
+    public Pessoa getTitular() {
+        return titular;
     }
-        public String getDocumento() {
-        return documento;
-    }
-    public void setDocumento(String documento) {
-        this.documento = documento;
-    }
+
+  
+
+
     public int getAgencia() {
         return agencia;
     }
@@ -47,23 +51,45 @@ public class Conta {
         return saldo;
     }
     public void imprimir(){
-        System.out.println("Titular: "+getNomeTitular());
-        System.out.println("Documento: "+(getDocumento()));
+        System.out.println("Tutular: "+getTitular().getNome());
+        System.out.println("Documento: "+getTitular().getDocumento());
         System.out.println("Agencia: "+num.format(getAgencia()));
         System.out.println("Conta: "+num.format(getNumero()));
         System.out.println("Saldo: "+moeda.format(getSaldo()));
+        System.out.println("Saldo e limite disponivel: "+moeda.format(getSaldoDisponivel()));
         System.out.println(corrency);
+        System.out.println("-----------------------------------------");
 
     }
-    void depositar(double valor){
+    public void depositar(double valor){
 
             if (valor <=0 ){
                 saldo= getSaldo();
-                System.out.println("Valor depoisitado é menor que zero, seu saldo permanece o mesmo! "+moeda.format(saldo));
+                System.out.println("Conta: "+num.format(getNumero())+" Valor invalido, seu saldo permanece o mesmo! "+moeda.format(saldo));
 
             }else {
                 saldo = saldo + valor;
             }
+
+    }
+    public void sacar(double valor)
+    {if (saldo < valor ) {
+            System.out.println("Saldo insuficiente");
+    }else {
+        saldo = saldo - valor;
+    }
+    if (getSaldoDisponivel()+valor < 0 ){
+        System.out.println("saldo insuficiente");
+        getSaldoDisponivel();
+
+
+    }else {
+        saldo = saldo-valor;
+    }
+
+    }
+    public double getSaldoDisponivel(){
+        return getSaldo();
 
     }
 

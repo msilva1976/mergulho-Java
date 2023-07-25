@@ -1,6 +1,8 @@
+package mergulhojava.banco.modelo;
+
 public class Pessoa {
-    private  String nome;
-    private  String documento;
+    private  final String nome;
+    private final String documento;
 
     public Pessoa(String nome, String documento) {
         this.nome = nome;
@@ -11,15 +13,13 @@ public class Pessoa {
         return nome;
     }
 
-    public void setNome(String nome) {
-        this.nome = nome;
-    }
+    
 
     public String getDocumento() {
         return documento;
     }
 
-    public void setDocumento(String documento) {
-        this.documento = documento;
-    }
+   
+
+   
 }
