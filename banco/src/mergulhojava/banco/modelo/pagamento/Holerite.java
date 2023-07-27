@@ -4,8 +4,8 @@ import mergulhojava.banco.modelo.Pessoa;
 
 public class Holerite implements DocumentoPagavel{
     private Pessoa fucionario;
-    private  double valorHora;
-    private  int quantidadeDeHoras;
+    private final double valorHora;
+    private final int quantidadeDeHoras;
     private boolean pago;
 
     public Holerite(Pessoa fucionario, double valorHora, int quantidadeDeHoras) {
