@@ -1,7 +1,7 @@
 package mergulhojava.banco.modelo;
 
 public class ContaEspecial extends Conta {
-    private double valorLiminte;
+    private final double valorLiminte;
 
     public ContaEspecial(Pessoa titular, int agencia, int numero, double valorLiminte) {
         super(titular, agencia, numero);
@@ -14,11 +14,15 @@ public class ContaEspecial extends Conta {
 
     }
 
+    @Override
+    public void debitarTarifaMensal() {
+        sacar(10);
+
+    }
+
     public double getValorLiminte() {
         return valorLiminte;
     }
 
-    public void setValorLiminte() {
-        this.valorLiminte = valorLiminte;
-    }
+
 }

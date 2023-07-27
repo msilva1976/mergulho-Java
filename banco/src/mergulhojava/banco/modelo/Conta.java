@@ -1,22 +1,22 @@
 package mergulhojava.banco.modelo;
 
 import java.text.NumberFormat;
-import java.util.Currency;
+
 import java.util.Locale;
 
 
 
-public class Conta {
+public abstract class Conta {
     private final Pessoa titular;
 
     private int agencia;
     private int numero;
     private double saldo;
 
-    Locale br = new Locale("pt","Brasil");
-    NumberFormat num = NumberFormat.getInstance(br);
+
+    NumberFormat num = NumberFormat.getInstance();
     NumberFormat moeda = NumberFormat.getCurrencyInstance(Locale.getDefault());
-    Currency corrency = moeda.getCurrency();
+
 
 
 
@@ -28,39 +28,8 @@ public class Conta {
        
     }
 
-    public Pessoa getTitular() {
-        return titular;
-    }
-
-  
 
 
-    public int getAgencia() {
-        return agencia;
-    }
-    public void setAgencia(int agencia) {
-        this.agencia = agencia;
-    }
-    public int getNumero() {
-        return numero;
-    }
-    public void setNumero(int numero) {
-        this.numero = numero;
-    }
-    public double getSaldo() {
-        return saldo;
-    }
-    public void imprimir(){
-        System.out.println("Tutular: "+getTitular().getNome());
-        System.out.println("Documento: "+getTitular().getDocumento());
-        System.out.println("Agencia: "+num.format(getAgencia()));
-        System.out.println("Conta: "+num.format(getNumero()));
-        System.out.println("Saldo: "+moeda.format(getSaldo()));
-        System.out.println("Saldo e limite disponivel: "+moeda.format(getSaldoDisponivel()));
-        System.out.println(corrency);
-        System.out.println("-----------------------------------------");
-
-    }
     public void depositar(double valor){
 
             if (valor <=0 ){
@@ -78,7 +47,7 @@ public class Conta {
     }else {
         saldo = saldo - valor;
     }
-    if (getSaldoDisponivel()+valor < 0 ){
+    if (getSaldoDisponivel()-valor < 0 ){
         System.out.println("saldo insuficiente");
         getSaldoDisponivel();
 
@@ -91,6 +60,25 @@ public class Conta {
     public double getSaldoDisponivel(){
         return getSaldo();
 
+    }
+    public  abstract void  debitarTarifaMensal();
+    public Pessoa getTitular() {
+        return titular;
+    }
+    public int getAgencia() {
+        return agencia;
+    }
+    public void setAgencia(int agencia) {
+        this.agencia = agencia;
+    }
+    public int getNumero() {
+        return numero;
+    }
+    public void setNumero(int numero) {
+        this.numero = numero;
+    }
+    public double getSaldo() {
+        return saldo;
     }
 
 
